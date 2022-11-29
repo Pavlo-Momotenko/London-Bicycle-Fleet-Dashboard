@@ -7,8 +7,7 @@ function DataAnalysis() {
             <PageHeader>Data Analysis</PageHeader>
             <h3>The nearest station to home:</h3>
             <NearestToHome/>
-            <h3>Avg distance between stations: </h3>
-
+            {/*<h3>Avg distance between stations: </h3>*/}
         </>
     )
 }
