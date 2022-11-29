@@ -4,7 +4,7 @@ from flask.views import MethodView
 from app.models import db
 
 
-class NearestToPoint(MethodView):
+class NearestToPointAPI(MethodView):
     init_every_request = False
     methods = ["POST"]
 

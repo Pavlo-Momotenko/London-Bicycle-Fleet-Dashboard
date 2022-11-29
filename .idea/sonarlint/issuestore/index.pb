@@ -89,3 +89,19 @@ d
 4client/src/components/data_analysis/NearestToHome.js,a/0/a069d891854e97c3467235b71883562afb4b834b
 y
 Iclient/src/components/data_analysis/AverageDistanceBeetweenTwoStations.js,2/d/2d5e8f98137dfe9ba6c933d270b9ab70bd38bea0
+R
+"server/app/data_servicing/views.py,c/b/cbd614e896f134c124924b185457e960cda61a97
+^
+.server/app/data_servicing/data_verification.py,f/9/f995adc2a2b806e3927199e76e0318683772ce8a
+V
+&server/app/data_visualization/views.py,9/9/99e0fdb4190b05580a67f6428beadcb37ad396b0
+U
+%client/src/pages/DataVisualization.js,6/5/6565bdb418c8f0e6403ecb90bf961618c9827158
+P
+ client/src/pages/DataAnalysis.js,c/2/c29fc301d3f44a2cae8b1e4b9a2300d79dbbc44c
+9
+	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+S
+#.idea/sonarlint/issuestore/index.pb,9/f/9fe84ebb15faf917b7def6236dba604453cc61e0
+Q
+!server/app/data_analysis/views.py,c/f/cfc9443466586d6e2bc8e3276345058267388e40
