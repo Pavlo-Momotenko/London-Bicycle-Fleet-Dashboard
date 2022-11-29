@@ -1,0 +1,40 @@
+version: "3.9"
+services:
+  docker_db:
+    image: mysql
+    ports:
+      - "3306:3306"
+    expose:
+      - 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: bicyclefleetdata
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3306" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+  docker_server:
+    build:
+      context: .
+      dockerfile: ./server/Dockerfile
+    ports:
+      - "8000:8000"
+    restart: on-failure
+    volumes:
+      - ./server:/usr/src/server
+    depends_on:
+      docker_db:
+        condition: service_healthy
+  client:
+    build:
+      context: .
+      dockerfile: ./client/Dockerfile
+    restart: on-failure
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/usr/src/client
+    depends_on:
+      - docker_server
+

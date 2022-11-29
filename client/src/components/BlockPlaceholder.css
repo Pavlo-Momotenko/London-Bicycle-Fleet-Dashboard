@@ -1,0 +1,13 @@
+.block-placeholder{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 5em;
+    border: 1px darkgray dashed;
+}
+
+.block-placeholder p {
+    color: darkgray;
+    margin: 0;
+}
