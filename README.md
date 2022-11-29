@@ -31,3 +31,7 @@
 ![](github_screenshots/5.png)
 
 ![](github_screenshots/6.png)
+
+![](github_screenshots/7.png)
+
+![](github_screenshots/8.png)

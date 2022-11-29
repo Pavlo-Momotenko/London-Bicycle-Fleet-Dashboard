@@ -19,7 +19,7 @@ class NearestToPoint(MethodView):
                 ) as meters_distance
             from bicycle_station
             order by meters_distance
-            limit 3;
+            limit 15;
          """
 
         return make_response(
@@ -27,8 +27,8 @@ class NearestToPoint(MethodView):
                 [
                     {
                         'name': i[0],
-                        'lat': round(i[1], 2),
-                        'lon': round(i[2], 2),
+                        'lat': round(i[1], 4),
+                        'lon': round(i[2], 4),
                         'meters_distance': round(i[3], 2)
                     } for i in db.engine.execute(raw_query.format(lat=lat, lon=lon))
                 ]
