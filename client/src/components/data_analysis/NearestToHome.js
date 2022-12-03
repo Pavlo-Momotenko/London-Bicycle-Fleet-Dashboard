@@ -42,17 +42,17 @@ function NearestToHome() {
 
     return (
         <>
-            <p>Please, enter latitude and longitude of your home destination:</p>
+            <p>Please, enter latitude and longitude of your home destination.</p>
             <Form onSubmit={handleSubmit}
                   className={"mb-3 d-flex justify-content-between align-content-center flex-nowrap"}>
-                <InputGroup controlId="formLat" className={"flex-sm-fill me-3 w-auto"}>
+                <InputGroup controlid="formLat" className={"flex-sm-fill me-3 w-auto"}>
                     <InputGroup.Text id="lat-text">Latitude</InputGroup.Text>
                     <Form.Control disabled={isLoading} aria-describedby="lat-text" type="number" step="0.01"
                                   onChange={handleLatChange} required={true}/>
 
                 </InputGroup>
 
-                <InputGroup controlId="formLon" className={"flex-sm-fill me-3 w-auto"}>
+                <InputGroup controlid="formLon" className={"flex-sm-fill me-3 w-auto"}>
                     <InputGroup.Text id="lon-text">Longitude</InputGroup.Text>
                     <Form.Control disabled={isLoading} aria-describedby="lon-text" type="number" step="0.01"
                                   onChange={handleLonChange} required={true}/>
@@ -61,7 +61,7 @@ function NearestToHome() {
                 <Button type={"submit"} disabled={isLoading} className={"me-3"}>Find nearest stations 🔎️</Button>
             </Form>
             {
-                options ?
+                options && options?.length > 0 ?
                     (
                         <Table bordered hover size={"sm"} responsive>
                             <thead key={uuidv4()}>

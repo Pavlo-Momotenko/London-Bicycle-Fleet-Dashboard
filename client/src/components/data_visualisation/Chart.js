@@ -24,7 +24,7 @@ function Chart({url}) {
     return (
         <>
             {
-                options ?
+                options && options?.series[0]?.data?.length > 0 ?
                     (
                         <HighchartsReact
                             highcharts={Highcharts}

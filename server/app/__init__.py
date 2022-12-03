@@ -43,10 +43,14 @@ def create_app():
         view_func=StationsMapChartAPI.as_view('stations-map')
     )
 
-    from app.data_analysis.views import NearestToPointAPI
+    from app.data_analysis.views import NearestToPointAPI, AverageDistanceBetweenStationsAPI
     app.add_url_rule(
         "/api/nearest_to_point",
         view_func=NearestToPointAPI.as_view('nearest-to-point')
+    )
+    app.add_url_rule(
+        "/api/avg_points_distance",
+        view_func=AverageDistanceBetweenStationsAPI.as_view('avg-points-distance')
     )
 
     return app

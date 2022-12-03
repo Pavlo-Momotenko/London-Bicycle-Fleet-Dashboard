@@ -66,7 +66,7 @@ class TopPopularAPI(MethodView):
         """
 
         result = {
-            day_name: [
+            str(day_sql) + day_name: [
                 tuple(i)
                 for i in db.engine.execute(raw_query.format(day_of_week=day_sql, ordering=ordering))
             ]
@@ -98,6 +98,9 @@ class BikeDistributionChartAPI(MethodView):
                     'title': {
                         'text': '',
                     },
+                    'credits': {
+                        'enabled': False
+                    },
                     'xAxis': {
                         'title': {
                             'text': "Duration"
@@ -105,19 +108,20 @@ class BikeDistributionChartAPI(MethodView):
                     },
                     'yAxis': {
                         'title': {
-                            'text': 'Happened times'
+                            'text': 'Number of times'
                         }
                     },
                     'plotOptions': {
                         'scatter': {
                             'tooltip': {
                                 'headerFormat': '<b>Bike Distribution</b><br>',
-                                'pointFormat': '{point.x} duration, {point.y} happened time'
+                                'pointFormat': '{point.x} duration, {point.y} number of times'
                             }
                         }
                     },
                     'series': [
                         {
+                            'showInLegend': False,
                             'data': [
                                 tuple(i)
                                 for i in db.engine.execute(raw_query)
@@ -155,8 +159,8 @@ class MostTurnoverRateStationChartAPI(MethodView):
                 [
                     {
                         'name': i[0],
-                        'lat': round(i[2], 2),
-                        'lon': round(i[1], 2)
+                        'lat': round(i[2], 6),
+                        'lon': round(i[1], 6)
                     } for i in db.engine.execute(raw_query)
                 ]
             )
@@ -177,8 +181,8 @@ class StationsMapChartAPI(MethodView):
                 [
                     {
                         'name': i[0],
-                        'lat': round(i[2], 2),
-                        'lon': round(i[1], 2)
+                        'lat': round(i[2], 6),
+                        'lon': round(i[1], 6)
                     } for i in db.engine.execute(raw_query)
                 ]
             )

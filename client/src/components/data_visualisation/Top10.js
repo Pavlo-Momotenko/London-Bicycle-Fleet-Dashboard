@@ -20,14 +20,21 @@ function Top10({ordering}) {
 
         getData().then(r => console.log("GET options in (Top10) : " + r));
     }, []);
+    let num_of_rows = 0
+    if (options) {
+        let values = Object.values(options);
+        for (var i in values) {
+            num_of_rows += values[i].length
+        }
+    }
     return (
         <>
             {
-                options ?
+                num_of_rows > 0 ?
                     (
                         Object.entries(options).map(([key, value], i) => (
                                 <div key={uuidv4()}>
-                                    <h4 key={uuidv4()}>{key}</h4>
+                                    <h4 key={uuidv4()}>{key.slice(1)}</h4>
                                     {
                                         value.length > 0 ? (
                                             <Table bordered hover size={"sm"} responsive key={'table' + i+key}>

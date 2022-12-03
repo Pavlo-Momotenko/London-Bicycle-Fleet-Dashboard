@@ -12,6 +12,7 @@ function DataVisualization() {
             <h3>Data overview</h3>
             <h5>1️⃣ Bicycle Stations data:</h5>
             <DataOverview dataInputType={"bicycle_station"}/>
+            <br/>
             <h5>2️⃣ Bicycle Hires data:</h5>
             <DataOverview dataInputType={"bicycle_hire"}/>
 
@@ -19,7 +20,7 @@ function DataVisualization() {
 
             <h3>Top 10 of MOST popular stations regarding the weekdays:</h3>
             <Top10 ordering={"desc"}/>
-
+            <hr/>
             <h3>Top 10 of LESS popular stations regarding the weekdays:</h3>
             <Top10 ordering={"asc"}/>
 
@@ -28,7 +29,7 @@ function DataVisualization() {
             <h3>The distribution of bike rental duration:</h3>
             <Chart url={"distribution_chart"}/>
             <hr/>
-            <h3>Where are the rental stations that have the most turnover rate? (top 10)</h3>
+            <h3>Where are the rental stations that have the most turnover rate?</h3>
             <MapChart url={"most_turnover"}/>
             <hr/>
             <h3>Map of the stations:</h3>

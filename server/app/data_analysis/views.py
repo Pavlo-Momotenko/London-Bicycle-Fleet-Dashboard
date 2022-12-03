@@ -27,10 +27,34 @@ class NearestToPointAPI(MethodView):
                 [
                     {
                         'name': i[0],
-                        'lat': round(i[1], 4),
-                        'lon': round(i[2], 4),
+                        'lat': round(i[1], 6),
+                        'lon': round(i[2], 6),
                         'meters_distance': round(i[3], 2)
                     } for i in db.engine.execute(raw_query.format(lat=lat, lon=lon))
                 ]
+            )
+        )
+
+
+class AverageDistanceBetweenStationsAPI(MethodView):
+    init_every_request = False
+    methods = ["GET"]
+
+    def get(self):
+        raw_query = """
+            select round(avg(sqrt(
+                pow(111.139 * (start_station.latitude - end_station.latitude), 2) +
+                pow(
+                    111.139 * (end_station.longitude - start_station.longitude) * COS(start_station.latitude / 57.3),
+                    2
+                ))), 6) as average
+            from bicycle_hire
+            join bicycle_station as start_station on (start_station.id = bicycle_hire.start_station_id)
+            join bicycle_station as end_station on (end_station.id = bicycle_hire.end_station_id);
+         """
+
+        return make_response(
+            jsonify(
+                [i[0] for i in db.engine.execute(raw_query)][0]
             )
         )

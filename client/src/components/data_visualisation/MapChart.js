@@ -4,7 +4,7 @@ import Highcharts from 'highcharts';
 import BlockPlaceholder from "../BlockPlaceholder";
 import highchartsMap from "highcharts/modules/map";
 import proj4 from "proj4";
-import mapDataIE from "@highcharts/map-collection/countries/gb/gb-all.geo.json";
+import mapData from "@highcharts/map-collection/countries/gb/gb-all.geo.json";
 
 function MapChart({url}) {
     highchartsMap(Highcharts);
@@ -36,7 +36,7 @@ function MapChart({url}) {
             {
                 // Use the gb-all map with no data as a basemap
                 name: "Great Britain",
-                mapData: mapDataIE,
+                mapData: mapData,
                 borderColor: "#A0A0A0",
                 nullColor: "rgba(200, 200, 200, 0.3)",
                 showInLegend: false
@@ -46,9 +46,10 @@ function MapChart({url}) {
                 type: "mappoint",
                 name: "Locations",
                 color: "#4169E1",
+                showInLegend: false,
                 accessibility: {
                     point: {
-                        valueDaescriptionFormat: '{xDescription}. Lat: {point.lat:.2f}, lon: {point.lon:.2f}.'
+                        valueDescriptionFormat: '{xDescription}. Lat: {point.lat:.2f}, lon: {point.lon:.2f}.'
                     }
                 },
                 data: series ? series : [], // [{'name': 'Liverpool', 'lat': 53.4, 'lon': -3}]
@@ -82,7 +83,7 @@ function MapChart({url}) {
     return (
         <>
             {
-                series ?
+                series && series?.length > 0 ?
                     (
                         <HighchartsReact
                             constructorType={"mapChart"}

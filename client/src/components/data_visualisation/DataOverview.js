@@ -37,7 +37,7 @@ function DataOverview({dataInputType}) {
     return (
         <>
             <div className={"d-flex flex-nowrap justify-content-end"}>
-                <Pagination>
+                <Pagination size="lg">
                     {PrevComponent}
                     {NextComponent}
                 </Pagination>
