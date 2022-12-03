@@ -69,7 +69,7 @@ function NearestToHome() {
                                 <th key={uuidv4()}>Latitude</th>
                                 <th key={uuidv4()}>Longitude</th>
                                 <th key={uuidv4()}>Station name</th>
-                                <th key={uuidv4()}>Distance (m)</th>
+                                <th key={uuidv4()}>Distance (km)</th>
                             </tr>
                             </thead>
                             <tbody key={uuidv4()}>

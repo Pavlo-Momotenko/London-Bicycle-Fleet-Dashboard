@@ -25,7 +25,7 @@ function AverageDistanceBetweenStations() {
                 num  ?
                     (
                         <div className={"d-flex justify-content-center align-items-center"}>
-                            <h1>{num} m</h1>
+                            <h1>{num} km</h1>
                         </div>
                     ) : (<BlockPlaceholder>Nothing to display 👀</BlockPlaceholder>)
             }
