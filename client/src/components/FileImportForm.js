@@ -117,7 +117,7 @@ function FileImportForm({data_input_type}) {
                         a.download = "export.csv";
                         a.click();
                     } else {
-                        saveAs(new Blob([blob], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}), 'export.xlsx');
+                        saveAs(blob, 'export.xlsx')
                     }
                 })
                 .catch(error => {

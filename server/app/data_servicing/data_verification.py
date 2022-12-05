@@ -14,6 +14,7 @@ class DataType(enum.Enum):
     BOOL = 'bool'
     FLOAT = 'float'
     STRING = 'object'
+    DATE = 'date'
 
     def __eq__(self, other) -> bool:
         return self.value == other.value
@@ -24,7 +25,7 @@ ALLOWED_FILE_EXTENSIONS = ('csv', 'xlsx')
 ALLOWED_DATA_INPUT_TYPES = {
     'bicycle_station': {
         'id': DataType.INT,
-        'install_date': DataType.DATETIME,
+        'install_date': DataType.DATE,
         'installed': DataType.BOOL,
         'latitude': DataType.FLOAT,
         'locked': DataType.BOOL,
@@ -33,7 +34,7 @@ ALLOWED_DATA_INPUT_TYPES = {
         'bikes_count': DataType.INT,
         'docks_count': DataType.INT,
         'nbEmptyDocks': DataType.INT,
-        'removal_date': DataType.DATETIME,
+        'removal_date': DataType.DATE,
         'temporary': DataType.BOOL,
         'terminal_name': DataType.INT
     },
@@ -94,6 +95,8 @@ def check_data_type(df: DataFrame, data_input_type: str) -> DataFrame:
             df[field] = df[field].astype(data_type.value, errors='ignore')
         elif data_type == DataType.DATETIME:
             df[field] = pd.to_datetime(df[field], errors='coerce', utc=True)
+        elif data_type == DataType.DATE:
+            df[field] = pd.to_datetime(df[field], errors='coerce', utc=True).dt.date
         elif data_type == DataType.INT or data_type == DataType.FLOAT:
             df[field] = pd.to_numeric(df[field], downcast=data_type.value, errors='coerce')
 
@@ -109,5 +112,5 @@ def check_data_type(df: DataFrame, data_input_type: str) -> DataFrame:
 def remove_time_zones(df: DataFrame, data_input_type: str) -> DataFrame:
     for field, data_type in ALLOWED_DATA_INPUT_TYPES.get(data_input_type, {}).items():
         if data_type == DataType.DATETIME:
-            df[field] = df[field].apply(lambda a: pd.to_datetime(a).date())
+            df[field] = df[field].dt.tz_localize(None)
     return df

@@ -138,12 +138,18 @@ class DownloadExcelAPI(MethodView):
         df = remove_time_zones(df, data_input_type)
 
         out = io.BytesIO()
-        writer = pd.ExcelWriter(out, engine='xlsxwriter')
-        df.to_excel(
-            columns=TYPES_MAP[data_input_type].keys(), index=False, excel_writer=writer,
-            sheet_name='Sheet'
-        )
-        resp = make_response(out.getvalue())
-        resp.headers["Content-Disposition"] = "attachment; filename=export.xlsx"
-        resp.headers["Content-Type"] = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        return resp
+        with pd.ExcelWriter(out, engine='xlsxwriter') as writer:
+            df.to_excel(
+                columns=TYPES_MAP[data_input_type].keys(), index=False, excel_writer=writer,
+                sheet_name='Sheet'
+            )
+
+            # Resize columns by content size
+            for i, col in enumerate(df.columns):
+                column_len = max(df[col].astype(str).str.len().max(), len(col) + 5)
+                writer.sheets['Sheet'].set_column(i, i, column_len)
+
+        response = make_response(out.getvalue())
+        response.headers["Content-Disposition"] = "attachment; filename=export.xlsx"
+        response.headers["Content-Type"] = "application/x-xls"
+        return response

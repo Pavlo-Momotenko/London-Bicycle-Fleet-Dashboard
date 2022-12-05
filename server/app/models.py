@@ -7,7 +7,7 @@ db = SQLAlchemy()
 TYPES_MAP = {
     'bicycle_station': {
         'id': db.Integer,
-        'install_date': db.DateTime(timezone=True),
+        'install_date': db.Date,
         'installed': db.Boolean,
         'latitude': db.Float,
         'locked': db.Boolean,
@@ -16,7 +16,7 @@ TYPES_MAP = {
         'bikes_count': db.Integer,
         'docks_count': db.Integer,
         'nbEmptyDocks': db.Integer,
-        'removal_date': db.DateTime(timezone=True),
+        'removal_date': db.Date,
         'temporary': db.Boolean,
         'terminal_name': db.Integer
     },
@@ -38,13 +38,13 @@ class BicycleStation(db.Model):
     __tablename__ = 'bicycle_station'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128))
-    install_date = db.Column(db.DateTime)
+    install_date = db.Column(db.Date)
     installed = db.Column(db.Boolean)
     locked = db.Column(db.Boolean)
     bikes_count = db.Column(db.Integer)
     docks_count = db.Column(db.Integer)
     nbEmptyDocks = db.Column(db.Integer)
-    removal_date = db.Column(db.DateTime)
+    removal_date = db.Column(db.Date)
     temporary = db.Column(db.Boolean)
     terminal_name = db.Column(db.Integer)
     latitude = db.Column(db.Float)
