@@ -194,10 +194,10 @@ function FileImportForm({data_input_type}) {
                             <Modal.Body>Are you sure you want to drop data?</Modal.Body>
                             <Modal.Footer>
                                 <Button variant="secondary" onClick={handleClose}>
-                                    Close
+                                    Cancel
                                 </Button>
                                 <Button variant="danger" onClick={handleDelete}>
-                                    Drop data 🗑
+                                    Drop 🗑
                                 </Button>
                             </Modal.Footer>
                         </Modal>

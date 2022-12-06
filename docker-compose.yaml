@@ -1,7 +1,8 @@
 version: "3.9"
 services:
   docker_db:
-    image: mysql
+    image: mysql:latest
+    restart: always
     ports:
       - "3306:3306"
     expose:
@@ -9,6 +10,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: bicyclefleetdata
+    volumes:
+      - docker_db_volume:/var/lib/mysql
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:3306" ]
       interval: 30s
@@ -26,7 +29,7 @@ services:
     depends_on:
       docker_db:
         condition: service_healthy
-  client:
+  docker_client:
     build:
       context: .
       dockerfile: ./client/Dockerfile
@@ -37,4 +40,6 @@ services:
       - ./client:/usr/src/client
     depends_on:
       - docker_server
+volumes:
+  docker_db_volume:
 
