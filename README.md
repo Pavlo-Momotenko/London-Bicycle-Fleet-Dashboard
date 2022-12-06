@@ -18,20 +18,21 @@
 
 ## Installation
 1) `docker-compose up -d`
+2) Enjoy!
 
 ## Screenshots
-![](github_screenshots/1.png)
+![](readme_screenshots/1.png)
 
-![](github_screenshots/2.png)
+![](readme_screenshots/2.png)
 
-![](github_screenshots/3.png)
+![](readme_screenshots/3.png)
 
-![](github_screenshots/4.png)
+![](readme_screenshots/4.png)
 
-![](github_screenshots/5.png)
+![](readme_screenshots/5.png)
 
-![](github_screenshots/6.png)
+![](readme_screenshots/6.png)
 
-![](github_screenshots/7.png)
+![](readme_screenshots/7.png)
 
-![](github_screenshots/8.png)
+![](readme_screenshots/8.png)
