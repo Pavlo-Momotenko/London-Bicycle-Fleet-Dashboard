@@ -58,7 +58,7 @@ function NearestToHome() {
                                   onChange={handleLonChange} required={true}/>
                 </InputGroup>
 
-                <Button type={"submit"} disabled={isLoading} className={"me-3"}>Find nearest stations 🔎️</Button>
+                <Button type={"submit"} disabled={isLoading}>Find nearest stations 🔎️</Button>
             </Form>
             {
                 options && options?.length > 0 ?
