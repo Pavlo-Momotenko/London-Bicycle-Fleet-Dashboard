@@ -1,12 +1,24 @@
+import React from 'react';
+
 import BreadcrumbComponent from "./Breadcrumbs";
 
-function PageHeader({children}) {
-    return (
-        <>
-            <h1>{children}</h1>
-            <BreadcrumbComponent>{children}</BreadcrumbComponent>
-        </>
-    )
+
+class PageHeader extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    render() {
+        let headerTitle = this.props.children;
+
+        return (
+            <>
+                <h1>{headerTitle}</h1>
+                <BreadcrumbComponent>{headerTitle}</BreadcrumbComponent>
+            </>
+        );
+    }
 }
 
 export default PageHeader;

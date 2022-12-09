@@ -79,15 +79,14 @@ class UploadDataAPI(MethodView):
             file_data_type=data_input_type,
             uploaded_at=None
         )
-
-        return make_response(jsonify({'success': "File was uploaded successfully"}))
+        return make_response(jsonify("File was uploaded successfully"))
 
     @verify_file_data_type
     def get(self, data_input_type: str):
         files = UploadFileLog.query.filter_by(file_data_type=UploadFileLog.resolve(data_input_type)).all()
         if files:
-            return make_response(jsonify({'files': [i.to_json() for i in files]}))
-        return make_response({})
+            return make_response(jsonify([i.to_json() for i in files]))
+        return make_response(jsonify())
 
     @verify_file_data_type
     def delete(self, data_input_type: str):
@@ -104,7 +103,7 @@ class UploadDataAPI(MethodView):
         db.session.commit()
         UploadFileLog.query.filter_by(file_data_type=data_input_type).delete()
         db.session.commit()
-        return make_response(jsonify({'success': f"Data was removed"}))
+        return make_response(jsonify("Data was removed"))
 
 
 class DownloadCSVAPI(MethodView):

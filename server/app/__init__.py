@@ -23,7 +23,7 @@ def create_app():
     from app.data_visualization.views import DataPaginationAPI, TopPopularAPI, BikeDistributionChartAPI, \
         MostTurnoverRateStationChartAPI, StationsMapChartAPI
     app.add_url_rule(
-        "/api/paginate/<int:page>/<string:data_input_type>",
+        "/api/paginate/<string:data_input_type>/<int:page>",
         view_func=DataPaginationAPI.as_view('data-pagination')
     )
     app.add_url_rule(

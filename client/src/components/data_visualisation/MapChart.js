@@ -1,99 +1,121 @@
-import {useEffect, useState} from "react";
+import React from 'react';
+
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from 'highcharts';
-import BlockPlaceholder from "../BlockPlaceholder";
 import highchartsMap from "highcharts/modules/map";
-import proj4 from "proj4";
 import mapData from "@highcharts/map-collection/countries/gb/gb-all.geo.json";
+import proj4 from "proj4";
 
-function MapChart({url}) {
-    highchartsMap(Highcharts);
+import BlockPlaceholder from "../BlockPlaceholder";
+import LoadingPlaceholder from "../LoadingPlaceholder";
 
-    if (typeof window !== "undefined") {
-        window.proj4 = window.proj4 || proj4;
+
+class MapChart extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoading: true,
+            series: []
+        };
     }
 
-    const [series, setSeries] = useState();
+    componentDidMount() {
+        highchartsMap(Highcharts);
 
-    const mapOptions = {
-        chart: {
-            map: "countries/ie/ie-all"
-        },
-        title: {
-            text: " "
-        },
-        credits: {
-            enabled: false
-        },
-        mapNavigation: {
-            enabled: true
-        },
-        tooltip: {
-            headerFormat: "",
-            pointFormat: "<b>{point.name}</b><br>Lat: {point.lat:.2f}, Lon: {point.lon:.2f}"
-        },
-        series: [
-            {
-                // Use the gb-all map with no data as a basemap
-                name: "Great Britain",
-                mapData: mapData,
-                borderColor: "#A0A0A0",
-                nullColor: "rgba(200, 200, 200, 0.3)",
-                showInLegend: false
-            },
-            {
-                // Specify points using lat/lon
-                type: "mappoint",
-                name: "Locations",
-                color: "#4169E1",
-                showInLegend: false,
-                accessibility: {
-                    point: {
-                        valueDescriptionFormat: '{xDescription}. Lat: {point.lat:.2f}, lon: {point.lon:.2f}.'
-                    }
-                },
-                data: series ? series : [], // [{'name': 'Liverpool', 'lat': 53.4, 'lon': -3}]
-                cursor: "pointer",
-                point: {
-                    events: {
-                        click: function () {
-                            console.log(this.keyword);
-                        }
-                    }
-                }
-            }
-        ]
-    };
-
-    useEffect(() => {
-        async function getData() {
-            const response = await fetch(
-                "/api/chart/" + url,
-                {
-                    method: 'GET',
-                }
-            );
-            setSeries(await response.json());
-            return 'ok';
+        if (typeof window !== "undefined") {
+            window.proj4 = window.proj4 || proj4;
         }
 
-        getData().then(r => console.log("GET options in (" + url + ') : ' + r));
-    }, []);
+        let url = this.props.url;
 
-    return (
-        <>
-            {
-                series && series?.length > 0 ?
-                    (
-                        <HighchartsReact
-                            constructorType={"mapChart"}
-                            highcharts={Highcharts}
-                            options={mapOptions}
-                        />
-                    ) : (<BlockPlaceholder>Nothing to display 👀</BlockPlaceholder>)
+        this.setState(
+            {isLoading: true},
+            async function () {
+                await fetch(
+                    "/api/chart/" + url,
+                    {
+                        method: "GET",
+                    }
+                ).then(
+                    (response) => {
+                        return response.json();
+                    }
+                ).then(
+                    (series) => {
+                        this.setState({series: series, isLoading: false});
+                    }
+                );
             }
-        </>
-    )
+        );
+    }
+
+    render() {
+        let isLoading = this.state.isLoading,
+            series = this.state.series;
+
+        if (isLoading) {
+            return <LoadingPlaceholder/>
+        }
+
+        return (
+            <>
+                {
+                    series.length > 0
+                        ? (
+                            <HighchartsReact
+                                constructorType={"mapChart"}
+                                highcharts={Highcharts}
+                                options={
+                                    {
+                                        chart: {
+                                            map: "countries/ie/ie-all"
+                                        },
+                                        title: {
+                                            text: ""
+                                        },
+                                        credits: {
+                                            enabled: false
+                                        },
+                                        mapNavigation: {
+                                            enabled: true
+                                        },
+                                        tooltip: {
+                                            headerFormat: "",
+                                            pointFormat: "<b>{point.name}</b><br>Lat: {point.lat:.2f}, Lon: {point.lon:.2f}"
+                                        },
+                                        series: [
+                                            {
+                                                // Use the gb-all map with no data as a basemap
+                                                name: "Great Britain",
+                                                mapData: mapData,
+                                                borderColor: "#A0A0A0",
+                                                nullColor: "rgba(200, 200, 200, 0.3)",
+                                                showInLegend: false
+                                            },
+                                            {
+                                                // Specify points using lat/lon
+                                                type: "mappoint",
+                                                name: "Locations",
+                                                color: "#4169E1",
+                                                showInLegend: false,
+                                                accessibility: {
+                                                    point: {
+                                                        valueDescriptionFormat: '{xDescription}. Lat: {point.lat:.2f}, lon: {point.lon:.2f}.'
+                                                    }
+                                                },
+                                                data: series, // [{'name': 'Liverpool', 'lat': 53.4, 'lon': -3}]
+                                                cursor: "pointer"
+                                            }
+                                        ]
+                                    }
+                                }
+                            />
+                        )
+                        : <BlockPlaceholder/>
+                }
+            </>
+        );
+    }
 }
 
 export default MapChart;

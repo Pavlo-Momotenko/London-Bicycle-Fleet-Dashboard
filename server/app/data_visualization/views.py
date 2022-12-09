@@ -22,7 +22,7 @@ class DataPaginationAPI(MethodView):
     methods = ["GET"]
 
     @verify_file_data_type
-    def get(self, page: int, data_input_type: str):
+    def get(self, data_input_type: str, page: int):
         page = page or 1
         headers = tuple(ALLOWED_DATA_INPUT_TYPES.get(data_input_type).keys())
         data_input_type = UploadFileLog.resolve(data_input_type)
@@ -67,7 +67,11 @@ class TopPopularAPI(MethodView):
 
         result = {
             str(day_sql) + day_name: [
-                tuple(i)
+                {
+                    'id': i[0],
+                    'station_name': i[1],
+                    'times_used': i[2]
+                }
                 for i in db.engine.execute(raw_query.format(day_of_week=day_sql, ordering=ordering))
             ]
             for day_sql, day_name in DAY_OF_WEEK.items()
@@ -88,49 +92,7 @@ class BikeDistributionChartAPI(MethodView):
             LIMIT 50;
          """
 
-        return make_response(
-            jsonify(
-                {
-                    'chart': {
-                        'type': "scatter",
-                        'zoomType': 'xy'
-                    },
-                    'title': {
-                        'text': '',
-                    },
-                    'credits': {
-                        'enabled': False
-                    },
-                    'xAxis': {
-                        'title': {
-                            'text': "Duration"
-                        }
-                    },
-                    'yAxis': {
-                        'title': {
-                            'text': 'Number of times'
-                        }
-                    },
-                    'plotOptions': {
-                        'scatter': {
-                            'tooltip': {
-                                'headerFormat': '<b>Bike Distribution</b><br>',
-                                'pointFormat': '{point.x} duration, {point.y} number of times'
-                            }
-                        }
-                    },
-                    'series': [
-                        {
-                            'showInLegend': False,
-                            'data': [
-                                tuple(i)
-                                for i in db.engine.execute(raw_query)
-                            ]
-                        }
-                    ]
-                }
-            )
-        )
+        return make_response(jsonify([tuple(i) for i in db.engine.execute(raw_query)]))
 
 
 class MostTurnoverRateStationChartAPI(MethodView):
