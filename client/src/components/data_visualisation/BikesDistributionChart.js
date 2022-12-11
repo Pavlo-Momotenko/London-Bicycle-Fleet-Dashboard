@@ -7,7 +7,7 @@ import BlockPlaceholder from "../BlockPlaceholder";
 import LoadingPlaceholder from "../LoadingPlaceholder";
 
 
-class Chart extends React.Component {
+class BikesDistributionChart extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -79,8 +79,8 @@ class Chart extends React.Component {
                                         plotOptions: {
                                             scatter: {
                                                 tooltip: {
-                                                    headerFormat: "<b>Bike Distribution</b><br>",
-                                                    pointFormat: "{point.x} duration, {point.y} number of times"
+                                                    headerFormat: "",
+                                                    pointFormat: "Duration: {point.x}</br>Number of times: {point.y}"
                                                 }
                                             }
                                         },
@@ -103,4 +103,4 @@ class Chart extends React.Component {
     }
 }
 
-export default Chart;
+export default BikesDistributionChart;

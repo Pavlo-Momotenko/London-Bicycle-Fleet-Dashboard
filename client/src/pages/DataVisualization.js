@@ -2,7 +2,7 @@ import React from 'react';
 
 import PageHeader from "../components/PageHeader";
 import DataOverview from "../components/data_visualisation/DataOverview";
-import Chart from "../components/data_visualisation/Chart";
+import BikesDistributionChart from "../components/data_visualisation/BikesDistributionChart";
 import Top10Table from "../components/data_visualisation/Top10Table";
 import MapChart from "../components/data_visualisation/MapChart";
 
@@ -34,7 +34,7 @@ class DataVisualization extends React.Component {
                 <hr/>
 
                 <h3>The distribution of bike rental duration:</h3>
-                <Chart url={"distribution_chart"}/>
+                <BikesDistributionChart url={"distribution_chart"}/>
                 <hr/>
                 <h3>Where are the rental stations that have the most turnover rate?</h3>
                 <MapChart url={"most_turnover"}/>

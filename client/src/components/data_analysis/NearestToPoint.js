@@ -29,21 +29,16 @@ class NearestToPoint extends React.Component {
     handlePostData = (event) => {
         event.preventDefault();
 
-        let formData = new FormData(),
-            lat = this.state.lat,
+        let lat = this.state.lat,
             lon = this.state.lon;
-
-        formData.append('latitude', lat);
-        formData.append('longitude', lon);
 
         this.setState(
             {isLoading: true},
             async function () {
                 await fetch(
-                    "/api/nearest_to_point",
+                    "/api/nearest_to_point".concat("?", new URLSearchParams({latitude: lat, longitude: lon}).toString()),
                     {
-                        method: "POST",
-                        body: formData
+                        method: "GET",
                     }
                 ).then(
                     (response) => {
@@ -100,12 +95,19 @@ class NearestToPoint extends React.Component {
                                     </thead>
                                     <tbody>
                                     {
+                                        /**
+                                         * @param values Contains data about nearest to point
+                                         * @param values.lat Station point latitude
+                                         * @param values.lon Station point longitude
+                                         * @param values.name Station name
+                                         * @param values.distance Distance value in km
+                                         */
                                         data.map((values, i) => (
                                             <tr key={i}>
                                                 <td>{values.lat}</td>
                                                 <td>{values.lon}</td>
                                                 <td>{values.name}</td>
-                                                <td>{values.meters_distance}</td>
+                                                <td>{values.distance}</td>
                                             </tr>
                                         ))
                                     }

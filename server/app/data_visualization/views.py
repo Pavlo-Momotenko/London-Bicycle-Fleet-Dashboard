@@ -1,12 +1,12 @@
 from http import HTTPStatus
-from flask import make_response, jsonify
+from flask import request, make_response, jsonify
 from flask.views import MethodView
 
 from app.data_servicing.data_verification import verify_file_data_type, ALLOWED_DATA_INPUT_TYPES
 from app.models import FileDataType, UploadFileLog, BicycleStation, BicycleHire, db
 
-TABLE_ROWS_PER_PAGE = 10
-DAY_OF_WEEK = {
+PAGINATION_ROWS_PER_PAGE = 10
+DAYS_OF_WEEK = {
     0: "Monday",
     1: "Tuesday",
     2: "Wednesday",
@@ -29,9 +29,11 @@ class DataPaginationAPI(MethodView):
 
         data = None
         if data_input_type == FileDataType.BICYCLE_STATIONS.value:
-            data = BicycleStation.query.order_by(BicycleStation.id).paginate(page=page, per_page=TABLE_ROWS_PER_PAGE)
+            data = BicycleStation.query.order_by(BicycleStation.id).paginate(page=page,
+                                                                             per_page=PAGINATION_ROWS_PER_PAGE)
         elif data_input_type == FileDataType.BICYCLE_HIRES.value:
-            data = BicycleHire.query.order_by(BicycleHire.rental_id).paginate(page=page, per_page=TABLE_ROWS_PER_PAGE)
+            data = BicycleHire.query.order_by(BicycleHire.rental_id).paginate(page=page,
+                                                                              per_page=PAGINATION_ROWS_PER_PAGE)
 
         if data is None or not data.items:
             return make_response(jsonify({'errors': ['There is no data to show']}), HTTPStatus.BAD_REQUEST)
@@ -49,7 +51,16 @@ class TopPopularAPI(MethodView):
     init_every_request = False
     methods = ["GET"]
 
-    def get(self, ordering: str = 'asc'):
+    def get(self):
+        ordering = request.args.get('ordering', 'asc')
+
+        if ordering not in ('asc', 'desc'):
+            return make_response(
+                jsonify(
+                    {'errors': [f"'{ordering}' is not valid for ordering"]}
+                ), HTTPStatus.BAD_REQUEST
+            )
+
         raw_query = """
             select end_station_id, end_station_name, sum(used_times) as used_times_sum from (
                 select count(*) as used_times, end_station_id, end_station_name from bicycle_hire
@@ -66,16 +77,20 @@ class TopPopularAPI(MethodView):
         """
 
         result = {
-            str(day_sql) + day_name: [
-                {
-                    'id': i[0],
-                    'station_name': i[1],
-                    'times_used': i[2]
-                }
-                for i in db.engine.execute(raw_query.format(day_of_week=day_sql, ordering=ordering))
+            "week_days": [day_name for day_name in DAYS_OF_WEEK.values()],
+            "week_days_data": [
+                [
+                    {
+                        'id': i[0],
+                        'station_name': i[1],
+                        'times_used': i[2]
+                    }
+                    for i in db.engine.execute(raw_query.format(day_of_week=day_sql, ordering=ordering))
+                ]
+                for day_sql in DAYS_OF_WEEK.keys()
             ]
-            for day_sql, day_name in DAY_OF_WEEK.items()
         }
+        result["is_any_data"] = any(result['week_days_data'])
         return make_response(jsonify(result))
 
 

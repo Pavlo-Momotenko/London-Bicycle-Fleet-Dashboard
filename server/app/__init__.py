@@ -28,10 +28,10 @@ def create_app():
     )
     app.add_url_rule(
         "/api/chart/distribution_chart",
-        view_func=BikeDistributionChartAPI.as_view('distr-bike-chart')
+        view_func=BikeDistributionChartAPI.as_view('distribution-bike-chart')
     )
     app.add_url_rule(
-        "/api/top_popular/<string:ordering>",
+        "/api/top_popular",
         view_func=TopPopularAPI.as_view('top-popular')
     )
     app.add_url_rule(

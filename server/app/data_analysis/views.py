@@ -6,19 +6,19 @@ from app.models import db
 
 class NearestToPointAPI(MethodView):
     init_every_request = False
-    methods = ["POST"]
+    methods = ["GET"]
 
-    def post(self):
-        lat = float(request.form.get('latitude'))
-        lon = float(request.form.get('longitude'))
+    def get(self):
+        lat = float(request.args.get('latitude'))
+        lon = float(request.args.get('longitude'))
 
         raw_query = """
             select name, latitude, longitude,  sqrt(
                 pow(111.139 * (bicycle_station.latitude - {lat}), 2) +
                 pow(111.139 * ({lon} - bicycle_station.longitude) * COS(latitude / 57.3), 2)
-                ) as meters_distance
+                ) as distance
             from bicycle_station
-            order by meters_distance
+            order by distance
             limit 15;
          """
 
@@ -29,7 +29,7 @@ class NearestToPointAPI(MethodView):
                         'name': i[0],
                         'lat': round(i[1], 6),
                         'lon': round(i[2], 6),
-                        'meters_distance': round(i[3], 2)
+                        'distance': round(i[3], 2)
                     } for i in db.engine.execute(raw_query.format(lat=lat, lon=lon))
                 ]
             )
