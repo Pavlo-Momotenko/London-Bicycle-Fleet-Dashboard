@@ -15,7 +15,7 @@ class DataServicing extends React.Component {
                 <h1>Home</h1>
 
                 <h3>Data import (*.csv, *.xlsx) </h3>
-                <p><b>Any new uploaded data will overwrite saved data by id/rental_id fields</b></p>
+                <p><b>Any new uploaded data will replace saved data.</b></p>
 
                 <p>Import <b>Bicycle Stations</b> data:</p>
                 <FileImportForm url={'bicycle_station'}/>
