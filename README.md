@@ -20,6 +20,9 @@
 1) `docker-compose up -d`
 2) Enjoy!
 
+## Skeleton screen
+![](readme_screenshots/9.gif)
+
 ## Screenshots
 ![](readme_screenshots/1.png)
 
