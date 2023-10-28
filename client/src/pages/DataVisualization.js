@@ -1,10 +1,12 @@
 import React from 'react';
 
 import PageHeader from "../components/PageHeader";
-import DataOverview from "../components/data_visualisation/DataOverview";
-import BikesDistributionChart from "../components/data_visualisation/BikesDistributionChart";
-import Top10Table from "../components/data_visualisation/Top10Table";
-import MapChart from "../components/data_visualisation/MapChart";
+import DataOverview from "../components/DataVisualisation/DataOverview";
+import RentalDurationDistribution from "../components/DataVisualisation/RentalDurationDistribution";
+import WeekdayStationsPopularity from "../components/DataVisualisation/WeekdayStationsPopularity";
+import StationsMap from "../components/DataVisualisation/StationsMap";
+import apiUrls from "../apiUrls";
+import StationsTurnoverRateMap from "../components/DataVisualisation/StationsTurnoverRateMap";
 
 
 class DataVisualization extends React.Component {
@@ -17,30 +19,32 @@ class DataVisualization extends React.Component {
         return (
             <>
                 <PageHeader>Data Visualization</PageHeader>
+
                 <h3>Data overview</h3>
-                <h5>1️⃣ Bicycle Stations data:</h5>
-                <DataOverview url={"bicycle_station"}/>
-                <h5>2️⃣ Bicycle Hires data:</h5>
-                <DataOverview url={"bicycle_hire"}/>
+                <DataOverview tableTitle={"Bicycle Stations data:"} url={apiUrls.bicycleStations.root}/>
+                <DataOverview tableTitle={"Bicycle Rentals data:"} url={apiUrls.bicycleRentals.root}/>
 
                 <hr/>
 
-                <h3>Top 10 of MOST popular stations regarding the weekdays:</h3>
-                <Top10Table ordering={"desc"}/>
-                <hr/>
-                <h3>Top 10 of LESS popular stations regarding the weekdays:</h3>
-                <Top10Table ordering={"asc"}/>
+                <h3>Top 10 most popular weekday stations:</h3>
+                <WeekdayStationsPopularity ordering={"desc"}/>
+                <h3>Top 10 least popular weekday stations:</h3>
+                <WeekdayStationsPopularity ordering={"asc"}/>
 
                 <hr/>
 
                 <h3>The distribution of bike rental duration:</h3>
-                <BikesDistributionChart url={"distribution_chart"}/>
+                <RentalDurationDistribution/>
+
                 <hr/>
+
                 <h3>Where are the rental stations that have the most turnover rate?</h3>
-                <MapChart url={"most_turnover"}/>
+                <StationsTurnoverRateMap/>
+
                 <hr/>
-                <h3>Map of the stations:</h3>
-                <MapChart url={"stations_map"}/>
+
+                <h3>Stations map:</h3>
+                <StationsMap/>
             </>
         );
     }

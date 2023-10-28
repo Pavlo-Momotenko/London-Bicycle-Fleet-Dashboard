@@ -3,7 +3,7 @@ import React from "react";
 import {Image} from "react-bootstrap";
 
 import BicycleStationsExample from '../media/bicycle_stations_data_example.png';
-import BicycleHiresExample from '../media/bicycle_hires_data_example.png';
+import BicycleRentalsExample from '../media/bicycle_rentals_data_example.png';
 
 import PageHeader from "../components/PageHeader";
 
@@ -25,14 +25,15 @@ class Readme extends React.Component {
                        className={"img-fluid img-thumbnail"}/>
 
                 <p className={"mt-3"}><b>Bicycle Hires</b> data:</p>
-                <Image src={BicycleHiresExample} alt={'Bicycle Hires data example'}
+                <Image src={BicycleRentalsExample} alt={'Bicycle Hires data example'}
                        className={"img-fluid img-thumbnail"}/>
+
                 <hr/>
-                <h3>Main cleaning data steps priority:</h3>
-                <p>1) NaN, INF, -INF replaced to 0</p>
-                <p>2) Checked data types</p>
-                <p>3) Duplicates dropped</p>
-                <p>4) If the row exists in the DB it will be replaced</p>
+
+                <h3>Demo:</h3>
+                <div className={"d-flex justify-content-center"}>
+                    <iframe width="888" height="500" src="https://www.youtube.com/embed/1C8aJwPiq5E?si=M_F2_a6s4vpiqNLd" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                </div>
             </>
         );
     }
