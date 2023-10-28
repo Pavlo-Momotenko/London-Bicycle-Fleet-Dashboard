@@ -34,4 +34,5 @@
 - Apply migrations - `alembic upgrade head`
 
 ## Project demo
+[Link to the demo record on YouTube](https://www.youtube.com/watch?v=1C8aJwPiq5E)
 [![Project demo](https://img.youtube.com/vi/1C8aJwPiq5E/maxresdefault.jpg)](https://www.youtube.com/watch?v=1C8aJwPiq5E)
