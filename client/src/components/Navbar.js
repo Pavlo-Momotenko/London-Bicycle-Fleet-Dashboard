@@ -20,7 +20,7 @@ class NavbarComponent extends React.Component {
             <Navbar bg="dark" expand="lg" variant="dark" sticky={"top"}>
                 <Container>
                     <Navbar.Brand to="/" as={Link}>📈<span
-                        className="navbar-brand-title">London Bicycle Fleet Data</span></Navbar.Brand>
+                        className="navbar-brand-title">London Bicycle Fleet Dashboard</span></Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">

@@ -1,43 +1,35 @@
 version: "3.9"
 services:
   docker_db:
-    image: mysql:latest
-    restart: always
+    image: mysql:8.1.0
     ports:
       - "3306:3306"
-    expose:
-      - 3306
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: bicyclefleetdata
+      MYSQL_DATABASE: bicycle_fleet_data
     volumes:
       - docker_db_volume:/var/lib/mysql
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:3306" ]
-      interval: 30s
-      timeout: 10s
-      retries: 5
   docker_server:
     build:
-      context: .
-      dockerfile: ./server/Dockerfile
+      context: ./server
+    command: bash -c "alembic upgrade head && flask run --host 0.0.0.0 --port 8000"
     ports:
       - "8000:8000"
-    restart: on-failure
     volumes:
-      - ./server:/usr/src/server
+      - ./server/:/app/
     depends_on:
-      docker_db:
-        condition: service_healthy
+      - docker_db
+    restart: always
   docker_client:
     build:
-      context: .
-      dockerfile: ./client/Dockerfile
-    restart: on-failure
+      context: ./client
+    restart: always
+    command: npm run start
     ports:
       - "3000:3000"
     volumes:
-      - ./client:/usr/src/client
+      - ./client/:/app/
+      - /app/node_modules
     depends_on:
       - docker_server
 volumes:

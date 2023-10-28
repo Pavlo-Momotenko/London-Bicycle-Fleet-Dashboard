@@ -7,7 +7,7 @@ import NavbarComponent from "./components/Navbar";
 
 import DataVisualization from "./pages/DataVisualization";
 import DataAnalysis from "./pages/DataAnalysis";
-import DataServicing from "./pages/DataServicing";
+import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Readme from "./pages/Readme";
 
@@ -24,9 +24,9 @@ class App extends React.Component {
                 <NavbarComponent/>
                 <Container className={"my-5"} as={"main"}>
                     <Routes>
-                        <Route path={'/'} element={<DataServicing/>}/>
-                        <Route path={'/data-analysis'} element={<DataAnalysis/>}/>
+                        <Route path={'/'} element={<Home/>}/>
                         <Route path={'/data-visualization'} element={<DataVisualization/>}/>
+                        <Route path={'/data-analysis'} element={<DataAnalysis/>}/>
                         <Route path={'/readme'} element={<Readme/>}></Route>
                         <Route path={'*'} element={<NotFound/>}/>
                     </Routes>

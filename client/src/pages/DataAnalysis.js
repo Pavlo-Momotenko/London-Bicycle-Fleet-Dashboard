@@ -1,8 +1,8 @@
 import React from "react";
 
 import PageHeader from "../components/PageHeader";
-import NearestToPoint from "../components/data_analysis/NearestToPoint";
-import AverageDistanceBetweenStations from "../components/data_analysis/AverageDistanceBetweenStations";
+import NearestToLocation from "../components/DataAnalysis/NearestToLocation";
+import AverageDistanceBetweenStations from "../components/DataAnalysis/AverageDistanceBetweenStations";
 
 
 class DataAnalysis extends React.Component {
@@ -15,9 +15,12 @@ class DataAnalysis extends React.Component {
         return (
             <>
                 <PageHeader>Data Analysis</PageHeader>
-                <h3>The nearest station to home:</h3>
-                <NearestToPoint/>
+
+                <h3>Nearest stations to location:</h3>
+                <NearestToLocation/>
+
                 <hr/>
+
                 <h3>Average distance between stations: </h3>
                 <AverageDistanceBetweenStations/>
             </>

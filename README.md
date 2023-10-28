@@ -1,4 +1,4 @@
-# London Bicycle Fleet Data
+# London Bicycle Fleet Dashboard
 
 ## Technology stack
 
@@ -20,22 +20,18 @@
 1) `docker-compose up -d`
 2) Enjoy!
 
-## Skeleton screen
-![](readme_screenshots/9.gif)
+## Development
+### Unit tests
+- Run tests - `python -m unittests`
 
-## Screenshots
-![](readme_screenshots/1.png)
+### Code quality checks
+- Formatter - `black .`
+- Linter - `flake8 --max-line-length 120`
+- Annotation - `mypy .`
 
-![](readme_screenshots/2.png)
+### Alembic
+- Generate migrations - `alembic revision --autogenerate -m "<MESSAGE>"`
+- Apply migrations - `alembic upgrade head`
 
-![](readme_screenshots/3.png)
-
-![](readme_screenshots/4.png)
-
-![](readme_screenshots/5.png)
-
-![](readme_screenshots/6.png)
-
-![](readme_screenshots/7.png)
-
-![](readme_screenshots/8.png)
+## Project demo
+[![Project demo](https://img.youtube.com/vi/1C8aJwPiq5E/maxresdefault.jpg)](https://www.youtube.com/watch?v=1C8aJwPiq5E)
