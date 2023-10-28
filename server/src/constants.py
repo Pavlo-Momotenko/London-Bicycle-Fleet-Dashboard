@@ -2,7 +2,7 @@ import enum
 
 DATE_FORMAT = "%d/%m/%Y"
 EARTH_RADIUS = 6371e3  # Earth radius in meters
-ALLOWED_FILE_EXTENSIONS = ('csv', 'xlsx')
+ALLOWED_FILE_EXTENSIONS = ("csv", "xlsx")
 
 # Pagination
 ROWS_PER_PAGE = 10

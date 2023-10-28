@@ -1,5 +1,5 @@
 from datetime import date, datetime
-from typing import Any
+from typing import Any, Type
 
 from pandas import to_datetime, isnull
 
@@ -8,7 +8,7 @@ class DataUtils:
     @staticmethod
     def validate_numeric(
         value: Any,
-        data_type: int | float = int,
+        data_type: Type[int | float] = int,
         min_value: int | float | None = None,
         allowed_signed: bool = True,
         allowed_nullable: bool = True,

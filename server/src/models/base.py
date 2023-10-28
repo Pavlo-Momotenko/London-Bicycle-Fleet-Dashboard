@@ -1,7 +1,7 @@
 from src.models.db_obj import db
 
 
-class Base(db.Model):
+class Base(db.Model):  # type: ignore[name-defined]
     __abstract__ = True
     id = db.Column(db.Integer, primary_key=True)
 

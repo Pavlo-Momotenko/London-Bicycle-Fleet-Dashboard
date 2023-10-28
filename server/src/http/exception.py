@@ -20,5 +20,5 @@ class HttpException(HTTPException):
 def http_exception_handler(exception: HttpException):
     message = exception.name
     description = exception.description
-    status = exception.code or HTTPStatus.BAD_REQUEST
-    return HttpErrorResponse(message, description, status)
+    status = exception.code or HTTPStatus.BAD_REQUEST.value
+    return HttpErrorResponse(message, description, HTTPStatus(status))

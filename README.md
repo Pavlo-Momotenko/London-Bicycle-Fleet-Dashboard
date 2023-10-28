@@ -24,6 +24,11 @@
 ### Unit tests
 - Run tests - `python -m unittests`
 
+### Code quality checks
+- Formatter - `black .`
+- Linter - `flake8 --max-line-length 120`
+- Annotation - `mypy .`
+
 ### Alembic
 - Generate migrations - `alembic revision --autogenerate -m "<MESSAGE>"`
 - Apply migrations - `alembic upgrade head`

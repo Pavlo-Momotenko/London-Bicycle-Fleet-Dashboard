@@ -12,14 +12,16 @@ class NearestStationsToLocationAPI(BaseAPI):
         latitude = float(request.args.get("latitude"))
         longitude = float(request.args.get("longitude"))
 
-        nearest_stations = LocationService.get_nearest_stations_to_location(latitude=latitude, longitude=longitude)
+        nearest_stations = LocationService.get_nearest_stations_to_location(
+            latitude=latitude, longitude=longitude
+        )
         data = [
             {
                 "stationId": value.id,
                 "latitude": value.latitude,
                 "longitude": value.longitude,
                 "locationName": value.name,
-                "distance": value.distance_in_meters
+                "distance": value.distance_in_meters,
             }
             for value in nearest_stations
         ]

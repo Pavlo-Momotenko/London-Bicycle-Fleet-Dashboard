@@ -11,7 +11,7 @@ from src.models.station import Station
 class StationService:
     @staticmethod
     def get_weekday_stations_popularity(
-            weekday: int, limit: int = 10, ascending: bool = True
+        weekday: int, limit: int = 10, ascending: bool = True
     ) -> list[Any]:
         order_func = asc if ascending else desc
         return (
@@ -30,7 +30,7 @@ class StationService:
     def get_stations_turnover_rate() -> list[Any]:
         subquery = union_all(
             select([Rental.start_station_id.label("station_id")]),
-            select([Rental.end_station_id.label("station_id")])
+            select([Rental.end_station_id.label("station_id")]),
         )
 
         return (
@@ -39,7 +39,7 @@ class StationService:
                 Location.latitude,
                 Location.longitude,
                 Location.name.label("location_name"),
-                func.count().label("turnover")
+                func.count().label("turnover"),
             )
             .join(subquery, Station.id == subquery.c.station_id)
             .join(Location, Station.location_id == Location.id)

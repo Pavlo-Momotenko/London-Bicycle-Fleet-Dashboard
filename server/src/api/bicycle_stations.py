@@ -1,6 +1,7 @@
 from datetime import date
 from functools import partial
 from types import NoneType
+from typing import Callable
 
 from flask import request, send_file
 from pandas import read_sql_query
@@ -21,7 +22,7 @@ from src.utils.data import DataUtils
 
 class BicycleStationsAPI(BaseAPI):
     methods = ["GET", "POST", "DELETE"]
-    IMPORT_DATA_VALIDATIONS: dict[str, dict[str, callable]] = {
+    IMPORT_DATA_VALIDATIONS: dict[str, dict[str, Callable]] = {
         "id": {
             "validator": partial(
                 DataUtils.validate_numeric,

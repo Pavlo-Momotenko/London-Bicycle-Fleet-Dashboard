@@ -66,7 +66,7 @@ class StationsTurnoverRateMapAPI(BaseAPI):
                 "locationName": value.location_name,
                 "locationLatitude": value.latitude,
                 "locationLongitude": value.longitude,
-                "totalTurnover": value.turnover
+                "totalTurnover": value.turnover,
             }
             for value in turnover_rates
         ]
@@ -88,4 +88,3 @@ class StationsMapAPI(BaseAPI):
             for value in stations_map
         ]
         return HttpResponse(data)
-

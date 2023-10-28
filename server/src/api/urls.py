@@ -10,10 +10,15 @@ from src.api.bicycle_stations import (
     BicycleStationsLogsAPI,
     BicycleStationsExportAPI,
 )
-from src.api.data_analysis import NearestStationsToLocationAPI, AverageDistanceBetweenStationsAPI
+from src.api.data_analysis import (
+    NearestStationsToLocationAPI,
+    AverageDistanceBetweenStationsAPI,
+)
 from src.api.data_visualization import (
     RentalDurationDistributionAPI,
-    WeekdayStationsPopularityAPI, StationsTurnoverRateMapAPI, StationsMapAPI,
+    WeekdayStationsPopularityAPI,
+    StationsTurnoverRateMapAPI,
+    StationsMapAPI,
 )
 
 # Export data blueprint
@@ -73,8 +78,7 @@ data_visualization_blueprint.add_url_rule(
 )
 # Stations map
 data_visualization_blueprint.add_url_rule(
-    "/stations-map",
-    view_func=StationsMapAPI.as_view("stations_map")
+    "/stations-map", view_func=StationsMapAPI.as_view("stations_map")
 )
 
 # Data analysis

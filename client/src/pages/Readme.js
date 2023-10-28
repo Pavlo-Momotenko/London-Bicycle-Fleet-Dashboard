@@ -32,7 +32,10 @@ class Readme extends React.Component {
 
                 <h3>Demo:</h3>
                 <div className={"d-flex justify-content-center"}>
-                    <iframe width="888" height="500" src="https://www.youtube.com/embed/1C8aJwPiq5E?si=M_F2_a6s4vpiqNLd" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                    <iframe width="888" height="500" src="https://www.youtube.com/embed/1C8aJwPiq5E?si=M_F2_a6s4vpiqNLd"
+                            title="YouTube video player" frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen></iframe>
                 </div>
             </>
         );

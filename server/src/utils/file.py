@@ -5,6 +5,7 @@ from typing import Optional
 from flask import request
 from pandas import DataFrame, read_csv, read_excel
 from pandas.errors import ParserError
+from werkzeug.datastructures import FileStorage
 
 from src.constants import ALLOWED_FILE_EXTENSIONS
 from src.http.error import HttpErrorResponse
@@ -36,11 +37,15 @@ class FileUtils:
         return df
 
     @classmethod
-    def file_to_dataframe(cls, file) -> Optional[DataFrame]:
+    def file_to_dataframe(cls, file: FileStorage) -> Optional[DataFrame]:
         convert_funcs_by_type = {".csv": cls.read_csv, ".xlsx": cls.read_excel}
+        filename = str(file.filename)
+
         for extension, func in convert_funcs_by_type.items():
-            if file.filename.endswith(extension):
+            if filename.endswith(extension):
                 return func(file)
+
+        return None
 
     @staticmethod
     def dataframe_to_csv_file(data: DataFrame) -> BytesIO:
